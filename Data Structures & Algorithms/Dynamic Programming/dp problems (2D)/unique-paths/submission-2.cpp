@@ -1,3 +1,6 @@
+
+// Tabulation Approach (Better)
+
 class Solution {
 public:
     int uniquePaths(int m, int n) 

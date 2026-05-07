@@ -1,3 +1,6 @@
+
+// Space Optimization Approach
+
 class Solution {
 public:
     int uniquePaths(int m, int n) 
