@@ -187,3 +187,134 @@ int main()
     }
     return 0;
 }
+
+
+
+// Quick Sort
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int partition(vector<int>& nums, int low, int high)
+{
+    int pivot = nums[high];
+
+    int i = low - 1;
+
+    for (int j = low; j < high; j++)
+    {
+        if (nums[j] < pivot)
+        {
+            i++;
+
+            swap(nums[i], nums[j]);
+        }
+    }
+
+    swap(nums[i + 1], nums[high]);
+
+    return i + 1;
+}
+
+void quickSort(vector<int>& nums, int low, int high)
+{
+    if (low >= high)
+        return;
+
+    int pivotIndex = partition(nums, low, high);
+
+    quickSort(nums, low, pivotIndex - 1);
+    quickSort(nums, pivotIndex + 1, high);
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> nums[i];
+    }
+
+    quickSort(nums, 0, n - 1);
+
+    for (int x : nums)
+        cout << x << " ";
+
+    return 0;
+}
+
+
+// Rotated Binary Search
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int rotatedBinarySearch(vector<int>& nums, int target)
+{
+    int low = 0;
+    int high = nums.size() - 1;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+
+        if (nums[mid] == target)
+        {
+            return mid;
+        }
+
+        // Left half is sorted
+        if (nums[low] <= nums[mid])
+        {
+            if (target >= nums[low] && target < nums[mid])
+            {
+                high = mid - 1;
+            }
+            else
+            {
+                low = mid + 1;
+            }
+        }
+
+        // Right half is sorted
+        else
+        {
+            if (target > nums[mid] && target <= nums[high])
+            {
+                low = mid + 1;
+            }
+            else
+            {
+                high = mid - 1;
+            }
+        }
+    }
+
+    return -1;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> nums[i];
+    }
+
+    int target;
+    cin >> target;
+
+    cout << rotatedBinarySearch(nums, target);
+
+    return 0;
+}
